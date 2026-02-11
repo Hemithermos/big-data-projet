@@ -48,6 +48,6 @@ build/
 
 ### Minio ###
 minio-data
-
+sql
 ### Hadoop ###
 hadoop

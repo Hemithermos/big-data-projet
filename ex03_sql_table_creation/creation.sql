@@ -26,12 +26,12 @@ CREATE TABLE dim_vendor (
 CREATE TABLE dim_ratecode (
     ratecode_id SMALLINT PRIMARY KEY, -- from 1 to 6 and 99
     ratecode_label TEXT NOT NULL
-)
+);
 
 CREATE TABLE dim_payment_type (
     payment_type_id SMALLINT PRIMARY KEY, -- from 0 to 6
-    payment_type_label
-)
+    payment_type_label TEXT
+);
 
 CREATE TABLE dim_store_and_fwd (
     store_and_fwd_flag CHAR(1) PRIMARY KEY, -- is 'Y' or 'N'
@@ -44,7 +44,7 @@ CREATE TABLE dim_zone (
     borough TEXT,
     zone_name TEXT,
     service_zone TEXT -- all three in the look up table
-)
+);
 
 CREATE TABLE dim_date (
     date_key INT PRIMARY KEY, -- in YYYYMMDD format
@@ -54,7 +54,7 @@ CREATE TABLE dim_date (
     day SMALLINT NOT NULL CHECK (day BETWEEN 1 AND 31),
     day_of_week SMALLINT NOT NULL CHECK (day_of_week BETWEEN 1 AND 7), -- si on veut faire des analytics jour par jour genmre lundi vs dimanche
     is_weekend BOOLEAN NOT NULL -- pk pas
-)
+);
 
 CREATE TABLE dim_time (
     time_key INT PRIMARY KEY, -- in HHMMSS format
@@ -62,7 +62,7 @@ CREATE TABLE dim_time (
     hour SMALLINT NOT NULL CHECK (hour BETWEEN 0 AND 23),
     minute SMALLINT NOT NULL CHECK (minute BETWEEN 1 AND 59),
     second SMALLINT NOT NULL CHECK (second BETWEEN 1 AND 59)
-)
+);
 
 
 
@@ -103,7 +103,7 @@ CREATE TABLE fact_trip ( -- big one
     airport_fee NUMERIC(10,2) NOT NULL DEFAULT 0 CHECK (airport_fee >= 0),
     cbd_congestion_fee NUMERIC(10,2) NOT NULL DEFAULT 0 CHECK (cbd_congestion_fee >= 0),
 
-    total_amount NUMERIC(10,2) NOT NULL DEFAULT 0 CHECK (total_amount >= 0)
+    total_amount NUMERIC(10,2) NOT NULL DEFAULT 0 CHECK (total_amount >= 0),
     
     -- big constraint, interdiction du voyage dans le temps
     CONSTRAINT ck_dropoff_after_pickup_test CHECK (dropoff_datetime >= pickup_datetime)

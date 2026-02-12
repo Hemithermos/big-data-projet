@@ -60,8 +60,8 @@ CREATE TABLE dim_time (
     time_key INT PRIMARY KEY, -- in HHMMSS format
     full_time TIME NOT NULL UNIQUE,
     hour SMALLINT NOT NULL CHECK (hour BETWEEN 0 AND 23),
-    minute SMALLINT NOT NULL CHECK (minute BETWEEN 1 AND 59),
-    second SMALLINT NOT NULL CHECK (second BETWEEN 1 AND 59)
+    minute SMALLINT NOT NULL CHECK (minute BETWEEN 0 AND 59),
+    second SMALLINT NOT NULL CHECK (second BETWEEN 0 AND 59)
 );
 
 

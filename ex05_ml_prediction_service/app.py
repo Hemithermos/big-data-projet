@@ -1,14 +1,18 @@
 import streamlit as st
 import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestRegressor
+import joblib
 
-# Load your pre-trained RandomForest model
-# model = joblib.load('your_model.pkl')  # Uncomment and replace with your model file
+import os
+import sys
 
-# Example: Create a dummy model if you don't have one yet
-# (Replace this with your actual model loading code)
-model = RandomForestClassifier(random_state=42)
-# Assume you have trained your model and saved it as 'model.pkl'
+LOAD_PATH = "models/random_forest_model.joblib"
+
+if not os.path.exists(LOAD_PATH):
+    print(f"{LOAD_PATH} does not exist! Verify if your trained a usable model in: machine_learning.py")
+    sys.exit(1)
+
+model:RandomForestRegressor = joblib.load(LOAD_PATH)
 
 # Streamlit app title
 st.title("RandomForest Prediction App")
@@ -31,3 +35,7 @@ if st.button("Predict"):
     prediction = model.predict(input_data)
     st.subheader("Prediction Result")
     st.write(f"The predicted class is: {prediction[0]}")
+
+# Possible autres features
+#feature1 = st.slider("Feature 1", min_value=0, max_value=100, value=50)
+#feature2 = st.selectbox("Feature 2", ["Option 1", "Option 2"])
